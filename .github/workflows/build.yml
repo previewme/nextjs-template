@@ -104,7 +104,7 @@ jobs:
           cache: 'npm'
 
       - name: Run Tests
-      - run: npm test
+        run: npm test
 
       - name: Upload file report files as an artifact
         if: success()
