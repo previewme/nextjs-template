@@ -5,11 +5,8 @@ ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NO_UPDATE_NOTIFIER=true
 
-COPY next.config.js ./
-COPY public ./public
-COPY .next ./.next
-COPY node_modules ./node_modules
-COPY package.json ./package.json
+COPY .next/standalone ./
+COPY .next/static ./
 
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
