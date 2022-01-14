@@ -1,6 +1,6 @@
 export default {
     clearMocks: true,
     collectCoverage: true,
-    coverageDirectory: 'coverage',
+    coverageDirectory: 'reports/coverage',
     coverageProvider: 'v8'
 };
