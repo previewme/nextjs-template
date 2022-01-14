@@ -58,6 +58,9 @@ For code quality checks we use SonarCloud and the project must be setup in Sonar
 5. Disable Automatic Analysis
 6. Update sonar-project.properties with the correct information for the project key and git repository
 
+### next.config.js
+1. Modify the basePath configuration to match the application. See [Base Path documentation](https://nextjs.org/docs/api-reference/next.config.js/basepath) for more.
+
 ### README.md
 
 1. Update the links to the badges

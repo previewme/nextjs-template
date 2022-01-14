@@ -4,7 +4,8 @@ const nextConfig = {
     poweredByHeader: false,
     experimental: {
         outputStandalone: true,
-    }
+    },
+    basePath: '/nextjs-template'
 };
 
 module.exports = nextConfig;

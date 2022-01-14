@@ -189,6 +189,48 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+  deploy-development:
+    needs:
+      - setup-ecr
+      - build
+    name: "Deploy development infrastructure and ECS service"
+    runs-on: ubuntu-latest
+    env:
+      TF_WORKSPACE: development
+    defaults:
+      run:
+        working-directory: deployment/service
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v2.0.10
+
+      - name: Read ECR file
+        id: ecr
+        run: echo ::set-output name=url::$(cat ${{ github.workspace }}/ecr/ecr-url.txt)
+        working-directory: ${{ github.workspace }}
+
+      - name: Checkout
+        uses: actions/checkout@v2.3.5
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+#      - name: Terraform Format
+#        id: fmt
+#        run: terraform fmt -check
+
+      - name: Setup Terraform variables
+        id: vars
+        run: |-
+          echo "TF_VAR_container_image=$(${{ steps.ecr.outputs.url }}:${{ env.SERVICE_VERSION }})" >> $GITHUB_ENV
+
+      - name: Test
+        run: echo $TF_VAR_container_image
+
   slack-workflow-status:
     if: always()
     name: Post Workflow Status To Slack
