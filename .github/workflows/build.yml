@@ -107,7 +107,7 @@ jobs:
         run: npm ci
 
       - name: Run Tests
-        run: npm test
+        run: npm run test
 
       - name: Upload file report files as an artifact
         if: success()
