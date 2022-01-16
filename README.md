@@ -98,8 +98,9 @@ The following steps need to be carried out for the Terraform configuration for t
 3. In `deployment/service/variables.tf` modify the default values to match the application.
 4. In `deployment/service/networking.tf` modify any configuration to match the application.
 5. Change to `deployment/service` folder and run `terraform init` to initialise the project.
-   1. If prompted to create a workspace create the value `${application-name}-production`. E.g: foo-production
-6. Create a development workspace by running `terraform workspace new ${application-name}-development` E.g: foo-development
+   1. If prompted to create a workspace create the value `${application-name}-production`. E.g: foo-production.
+6. Create a development workspace by running `terraform workspace new ${application-name}-development` E.g: foo-development.
+7. Update condition on the deploy-production job in build.yml to match the deploy-development when the service is production ready.  
 
 ## Learn More
 
