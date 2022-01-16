@@ -3,7 +3,7 @@ terraform {
     organization = "previewme"
 
     workspaces {
-      tags = ["nextjs-template"]
+      tags = ["nextjs:template"]
     }
   }
 }

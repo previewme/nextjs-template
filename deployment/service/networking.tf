@@ -7,7 +7,7 @@ resource "aws_lb_target_group" "blue" {
   deregistration_delay = 60
 
   health_check {
-    path     = "/nextjs-template"
+    path     = var.health_check_path
     matcher  = "200"
     interval = 10
     timeout  = 2
@@ -23,7 +23,7 @@ resource "aws_lb_target_group" "green" {
   deregistration_delay = 60
 
   health_check {
-    path     = "/nextjs-template"
+    path     = var.health_check_path
     matcher  = "200"
     interval = 10
     timeout  = 2
@@ -40,7 +40,7 @@ resource "aws_lb_listener_rule" "application_rule" {
 
   condition {
     host_header {
-      values = data.terraform_remote_state.common.outputs.api_domain
+      values = data.terraform_remote_state.common.outputs.default_domains
     }
   }
 

@@ -33,6 +33,12 @@ variable "container_image" {
   description = "The container image which will be deployed initially"
 }
 
+variable "health_check_path" {
+  type        = string
+  description = "The container image which will be deployed initially"
+  default     = "/nextjs-template"
+}
+
 variable "launch_type" {
   default     = "FARGATE"
   description = "The launch type on which to run your service"

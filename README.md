@@ -85,16 +85,21 @@ The versions can be increased in the GitHub Action file when required.
 
 This project uses Terraform to deploy the service to the PreviewMe ECS cluster.
 
-### AWS Credentials
-The ECR and Service deployment require AWS Credentials to be setup in Terraform Cloud. This can be done by running the [terraform-cloud-boostrap](https://github.com/previewme/terraform-cloud-bootstrap) action.
-
 ### ECR repository Deployment
 The following changes need to be made in the Terraform configuration.
 
-The GitHub workflow will use the repository name for the application name, it is essential to name the repository appropriately. E.g: foo-application.
+1. In `deployment/ecr/backend.tf` replace the workspace name to match the project name E.g: foo-ecr
 
-#### Workspace names
-* `deployment/ecr/backend.tf` replace the workspace name to match the project name E.g: foo-ecr
+### ECS Deployment
+The following steps need to be carried out for the Terraform configuration for the docker container to be deployed correctly.
+
+1. In `deployment/service/backend.tf` replace the workspace tags with the name of the project E.g: foo.
+2. In `deployment/service/main.tf` modify the locals.workspace variable to match your tag name in step 1.
+3. In `deployment/service/variables.tf` modify the default values to match the application.
+4. In `deployment/service/networking.tf` modify any configuration to match the application.
+5. Change to `deployment/service` folder and run `terraform init` to initialise the project.
+   1. If prompted to create a workspace create the value `${application-name}-production`. E.g: foo-production
+6. Create a development workspace by running `terraform workspace new ${application-name}-development` E.g: foo-development
 
 ## Learn More
 
