@@ -10,6 +10,7 @@ on:
 
 env:
   APPLICATION_VERSION: 0.1.${{ github.run_number }}
+  TF_IN_AUTOMATION: true
   TF_VAR_application_name: ${{ github.event.repository.name }}
   TF_VAR_operations_assume_role: ${{ secrets.OPERATIONS_ROLE_TO_ASSUME }}
 
@@ -35,12 +36,12 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -input=false
 
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color
+        run: terraform plan -no-color -input=false
         continue-on-error: true
 
       - uses: actions/github-script@v5
@@ -71,7 +72,7 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -input=false
 
       - name: Get ECR Repository URL
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -197,7 +198,7 @@ jobs:
     name: "Deploy development infrastructure and ECS service"
     runs-on: ubuntu-latest
     env:
-      TF_WORKSPACE: development
+      TF_WORKSPACE: ${{ github.event.repository.name }}-development
     defaults:
       run:
         working-directory: deployment/service
@@ -226,7 +227,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -input=false
 
       - name: Setup Terraform variables
         id: vars
@@ -236,7 +237,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color
+        run: terraform plan -no-color -input=false
         continue-on-error: true
 
       - uses: actions/github-script@v5
@@ -267,7 +268,7 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -input=false
 
       - name: Get terraform outputs
         id: terraform
