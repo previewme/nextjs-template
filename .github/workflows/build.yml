@@ -232,7 +232,7 @@ jobs:
       - name: Setup Terraform variables
         id: vars
         run: |-
-          echo "TF_VAR_container_image: ${{ steps.ecr.outputs.url }}:${{ env.APPLICATION_VERSION }}" >> $GITHUB_ENV
+          echo "TF_VAR_container_image=${{ steps.ecr.outputs.url }}:${{ env.APPLICATION_VERSION }}" >> $GITHUB_ENV
 
       - name: Terraform Plan
         id: plan
