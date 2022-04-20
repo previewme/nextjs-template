@@ -40,7 +40,9 @@ resource "aws_lb_listener_rule" "application_rule" {
 
   condition {
     host_header {
-      values = local.domain
+      values = [
+        local.domain
+      ]
     }
   }
 
