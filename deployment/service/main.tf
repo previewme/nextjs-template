@@ -1,3 +1,15 @@
+data "terraform_remote_state" "global" {
+  backend = "remote"
+
+  config = {
+    organization = "previewme"
+
+    workspaces = {
+      name = "aws-bootstrap"
+    }
+  }
+}
+
 data "terraform_remote_state" "common" {
   backend = "remote"
 
@@ -21,6 +33,7 @@ data "aws_sns_topic" "alert_topic" {
 locals {
   workspace  = var.TFC_WORKSPACE_NAME != "" ? trimprefix(var.TFC_WORKSPACE_NAME, "nextjs-template-") : terraform.workspace
   account_id = data.terraform_remote_state.common.outputs.aws_account_id
+  domain     = data.terraform_remote_state.global.outputs.hosted_zones[local.workspace].name
 }
 
 provider "aws" {

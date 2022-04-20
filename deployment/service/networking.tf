@@ -40,7 +40,7 @@ resource "aws_lb_listener_rule" "application_rule" {
 
   condition {
     host_header {
-      values = data.terraform_remote_state.common.outputs.default_domains
+      values = local.domain
     }
   }
 
