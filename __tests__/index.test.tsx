@@ -3,7 +3,7 @@ import Home from '@/pages/index';
 
 describe('Home', () => {
     it('renders a heading', () => {
-        render(<Home uri={''} />);
+        render(<Home />);
 
         const heading = screen.getByRole('heading', {
             name: 'Welcome to Next.JS'
