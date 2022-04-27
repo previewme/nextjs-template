@@ -21,9 +21,7 @@ const SecondPage = function NextPage({ uri }: InferGetServerSidePropsType<typeof
             <p>
                 This is the second page{' '}
                 <Link href="/">
-                    <a target="_blank" rel="noreferrer">
-                        click here to back home
-                    </a>
+                    <a>click here to back home</a>
                 </Link>
             </p>
         </main>

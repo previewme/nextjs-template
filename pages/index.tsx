@@ -12,9 +12,7 @@ const Home = function NextPage() {
                 <br />
                 For the second page{' '}
                 <Link href="/second">
-                    <a target="_blank" rel="noreferrer">
-                        click here
-                    </a>
+                    <a>click here</a>
                 </Link>
             </p>
         </main>
