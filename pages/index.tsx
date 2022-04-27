@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const Home = function NextPage() {
     return (
         <main>
@@ -6,7 +8,14 @@ const Home = function NextPage() {
                 Please look at the following link for NextJS{' '}
                 <a href="https://nextjs.org/docs/getting-started" target="_blank" rel="noreferrer">
                     getting started
-                </a>
+                </a>{' '}
+                <br />
+                For the second page{' '}
+                <Link href="/second">
+                    <a target="_blank" rel="noreferrer">
+                        click here
+                    </a>
+                </Link>
             </p>
         </main>
     );
