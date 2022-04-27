@@ -1,6 +1,20 @@
+import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import Link from 'next/link';
 
-const SecondPage = function NextPage() {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    if (!context.req) {
+        return { props: {} };
+    }
+
+    return {
+        props: {
+            uri: 'test'
+        }
+    };
+};
+
+const SecondPage = function NextPage({ uri }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    console.info(JSON.stringify(uri));
     return (
         <main>
             <h1>Second Page</h1>
