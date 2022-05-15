@@ -5,8 +5,11 @@ ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NO_UPDATE_NOTIFIER=true
 
-COPY .next/standalone ./
-COPY .next/static ./.next/static
+COPY next.config.js ./
+COPY public ./public
+COPY .next ./.next
+COPY node_modules ./node_modules
+COPY package.json package.json
 
 COPY entrypoint.sh .
 COPY .env .
@@ -17,4 +20,4 @@ RUN ["chmod", "+x", "./entrypoint.sh"]
 ENTRYPOINT ["./entrypoint.sh"]
 
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["node_modules/.bin/next", "start"]
