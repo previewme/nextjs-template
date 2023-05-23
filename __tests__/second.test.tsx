@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import Home, { getServerSideProps } from '@/pages/index';
+import Second , { getServerSideProps } from '@/pages/second';
 
-describe('Home', () => {
+describe('Second Page', () => {
     it('renders a heading', () => {
-        render(<Home />);
+        render(<Second />);
 
         const heading = screen.getByRole('heading', {
-            name: 'Welcome to Next.JS'
+            name: 'Second Page'
         });
 
         expect(heading).toBeInTheDocument();
