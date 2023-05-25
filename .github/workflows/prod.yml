@@ -15,4 +15,4 @@ jobs:
         run: echo "Hello from prod workflow"
 
       - name: Echo Output
-        run: echo ${{ outputs.test.dummy }}
+        run: echo ${{ needs.test.outputs.dummy }}
