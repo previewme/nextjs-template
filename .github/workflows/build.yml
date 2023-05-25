@@ -175,27 +175,27 @@ jobs:
 #        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 #        run: docker push ${{ steps.ecr.outputs.url }}:${{ env.APPLICATION_VERSION }}
 
-  sonarcloud:
-    needs:
-      - test
-    name: Quality Gate
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2.3.5
-        with:
-          fetch-depth: 0
-
-      - name: Download a reports artifact
-        uses: actions/download-artifact@v2.0.10
-        with:
-          name: reports
-          path: reports
-
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#  sonarcloud:
+#    needs:
+#      - test
+#    name: Quality Gate
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2.3.5
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Download a reports artifact
+#        uses: actions/download-artifact@v2.0.10
+#        with:
+#          name: reports
+#          path: reports
+#
+#      - name: SonarCloud Scan
+#        uses: sonarsource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 #  deploy-development:
 #    needs:
