@@ -2,7 +2,8 @@ name: Production Workflow
 
 on:
   workflow_run:
-    workflows: ["Application Build"]
+    workflows:
+      - "Application Build"
     types:
       - completed
 
