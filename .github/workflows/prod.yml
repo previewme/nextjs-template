@@ -9,7 +9,7 @@ on:
 
 jobs:
   deploy-production:
-    needs: sonarcloud
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Step 1
