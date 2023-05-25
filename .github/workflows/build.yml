@@ -121,6 +121,7 @@ jobs:
           path: reports/
           retention-days: 1
       - name: Test Output
+        run: echo "Set output"
         outputs:
           dummy: "Hello from build.yml"
 
