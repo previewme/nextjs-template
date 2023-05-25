@@ -16,4 +16,4 @@ jobs:
         run: echo "Hello from prod workflow"
 
       - name: Echo Output
-        run: echo "Output from Application Build: ${{ needs.test.outputs.my-output }}"
+        run: echo "Output from Application Build:${{ needs.test.outputs.my-output }}"
