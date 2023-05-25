@@ -8,13 +8,12 @@ on:
       - completed
 
 jobs:
-  my-job:
+  deploy-production:
     needs: sonarcloud
     runs-on: ubuntu-latest
     steps:
       - name: Step 1
-        run: echo "Hello from Workflow B"
-      - name: Step 2
-        run: echo "Workflow B: Step 2"
+        run: echo "Hello from prod workflow"
+
       - name: Echo Output
-        run: echo "Output from Application Build: ${{ needs.build.outputs.my-output }}"
+        run: echo "Output from Application Build: ${{ needs.test.outputs.my-output }}"
