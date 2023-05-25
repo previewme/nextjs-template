@@ -121,8 +121,8 @@ jobs:
           path: reports/
           retention-days: 1
       - name: Test Output
-        id: step2
-        run: echo "::set-output name=my-output::some value"
+        run: echo "::set-output name=dummy::hello from build.yml"
+
 
 #  build:
 #    needs:
