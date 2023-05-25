@@ -1,0 +1,19 @@
+name: Production Workflow
+
+on:
+  workflow_run:
+    workflows: ["Application Build"]
+    types:
+      - completed
+
+jobs:
+  my-job:
+    needs: build.test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: echo "Hello from Workflow B"
+      - name: Step 2
+        run: echo "Workflow B: Step 2"
+      - name: Echo Output
+        run: echo "Output from Application Build: ${{ needs.build.outputs.my-output }}"
