@@ -120,9 +120,6 @@ jobs:
           name: reports
           path: reports/
           retention-days: 1
-      - name: Test Output
-        run: echo "::set-output name=dummy::hello from build.yml"
-
 
 #  build:
 #    needs:
