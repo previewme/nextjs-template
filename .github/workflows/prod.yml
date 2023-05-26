@@ -14,4 +14,4 @@ jobs:
     if: github.event.release.prerelease == false
     steps:
       - name: Step 1
-        run: echo "This will deploy to Production environment"
+        run: echo "This will deploy to Production env"
