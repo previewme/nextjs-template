@@ -5,11 +5,13 @@ on:
     types:
       - created
     branches:
-      - release/*
+      - 'release/*'
 
 jobs:
   deploy-production:
     runs-on: ubuntu-latest
+    # Add a condition to skip the workflow if the release is a prerelease
+    if: github.event.release.prerelease == false
     steps:
       - name: Step 1
         run: echo "This will deploy to Production environment"
