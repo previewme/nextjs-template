@@ -16,10 +16,14 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
 const Home = function NextPage({ uri }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     console.info(JSON.stringify(uri));
+    const imgURL =
+        'https://res.cloudinary.com/innovation-capital/video/upload/s--oTlBL3sV--/' +
+        'du_5.0,eo_1.859,fl_lossy,q_50,so_0.0/l_PreviewMe:Other:' +
+        'majxzwm8mcdoevwhh1wz/e_loop/PreviewMe/Test/rhrryv2itv1bzdaodhwe.gif';
     return (
         <main>
             <Head>
-                <meta property="og:image" content="https://res.cloudinary.com/innovation-capital/video/upload/s--oTlBL3sV--/du_5.0,eo_1.859,fl_lossy,q_50,so_0.0/l_PreviewMe:Other:majxzwm8mcdoevwhh1wz/e_loop/PreviewMe/Test/rhrryv2itv1bzdaodhwe.gif" />
+                <meta property="og:image" content={imgURL} />
                 <meta property="og:url" content="https://development.previewme.com/nextjs-template" />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content="NextJS Template" />
