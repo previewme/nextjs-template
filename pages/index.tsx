@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Head from 'next/head';
 import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
@@ -17,6 +18,14 @@ const Home = function NextPage({ uri }: InferGetServerSidePropsType<typeof getSe
     console.info(JSON.stringify(uri));
     return (
         <main>
+            <Head>
+                <meta property="og:image" content="https://res.cloudinary.com/innovation-capital/video/upload/s--oTlBL3sV--/du_5.0,eo_1.859,fl_lossy,q_50,so_0.0/l_PreviewMe:Other:majxzwm8mcdoevwhh1wz/e_loop/PreviewMe/Test/rhrryv2itv1bzdaodhwe.gif" />
+                <meta property="og:url" content="https://development.previewme.com/nextjs-template" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="NextJS Template" />
+                <meta property="og:description" content="This is sample" />
+                <title>Welcome</title>
+            </Head>
             <h1>Welcome to Next.JS</h1>
             <p>
                 Please look at the following link for NextJS
