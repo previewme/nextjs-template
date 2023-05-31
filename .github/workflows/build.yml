@@ -232,13 +232,13 @@ jobs:
         id: init
         run: terraform init -input=false
 
-      - name: Refresh Terraform state
-        run: terraform refresh
-
       - name: Setup Terraform variables
         id: vars
         run: |-
           echo "TF_VAR_container_image=${{ steps.ecr.outputs.url }}:${{ env.APPLICATION_VERSION }}" >> $GITHUB_ENV
+
+      - name: Refresh Terraform state
+        run: terraform refresh
 
       - name: Terraform Plan
         id: plan
