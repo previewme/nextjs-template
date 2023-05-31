@@ -232,6 +232,9 @@ jobs:
         id: init
         run: terraform init -input=false
 
+      - name: Refresh Terraform state
+        run: terraform refresh
+
       - name: Setup Terraform variables
         id: vars
         run: |-
