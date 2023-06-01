@@ -237,12 +237,12 @@ jobs:
         run: |-
           echo "TF_VAR_container_image=${{ steps.ecr.outputs.url }}:${{ env.APPLICATION_VERSION }}" >> $GITHUB_ENV
 
-      - name: Refresh Terraform state
-        run: terraform refresh
+#      - name: Refresh Terraform state
+#        run: terraform refresh
 
       - name: Terraform Plan
         id: plan
-#        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
@@ -272,44 +272,44 @@ jobs:
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
-#      - name: Terraform Apply
-#        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-#        run: terraform apply -auto-approve -input=false
-#
-#      - name: Get terraform outputs
-#        id: terraform
-#        run: |
-#          echo "::set-output name=service-name::$(terraform-bin output -no-color -raw service_name)"
-#          echo "::set-output name=ecs-cluster-name::$(terraform-bin output -no-color -raw ecs_cluster_name)"
-#          echo "::set-output name=codedeploy-application-name::$(terraform-bin output -no-color -raw codedeploy_application_name)"
-#          echo "::set-output name=codedeploy-group-name::$(terraform-bin output -no-color -raw codedeploy_deployment_group)"
-#          echo "::set-output name=task-definition::$(terraform-bin output -no-color -raw task_definition_file)"
-#          echo "::set-output name=appspec-file::$(terraform-bin output -no-color -raw appspec_file)"
-#
-#      - name: Write CodeDeploy files
-#        run: |
-#          echo '${{ steps.terraform.outputs.task-definition }}' > ${{ github.workspace }}/task-definition.json
-#          echo '${{ steps.terraform.outputs.appspec-file }}' > ${{ github.workspace }}/appspec.json
-#      - name: Configure AWS credentials
-#        uses: aws-actions/configure-aws-credentials@v1.5.11
-#        with:
-#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          aws-region: us-east-1
-#          role-to-assume: ${{ secrets.DEVELOPMENT_ROLE_TO_ASSUME }}
-#          role-skip-session-tagging: true
-#          role-duration-seconds: 1200
-#
-#      - name: Deploy to Development ECS
-#        uses: aws-actions/amazon-ecs-deploy-task-definition@v1.4.7
-#        with:
-#          task-definition: task-definition.json
-#          service: ${{ steps.terraform.outputs.service-name }}
-#          cluster: ${{ steps.terraform.outputs.ecs-cluster-name }}
-#          wait-for-service-stability: true
-#          codedeploy-appspec: appspec.json
-#          codedeploy-application: ${{ steps.terraform.outputs.codedeploy-application-name }}
-#          codedeploy-deployment-group: ${{ steps.terraform.outputs.codedeploy-group-name }}
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
+
+      - name: Get terraform outputs
+        id: terraform
+        run: |
+          echo "::set-output name=service-name::$(terraform-bin output -no-color -raw service_name)"
+          echo "::set-output name=ecs-cluster-name::$(terraform-bin output -no-color -raw ecs_cluster_name)"
+          echo "::set-output name=codedeploy-application-name::$(terraform-bin output -no-color -raw codedeploy_application_name)"
+          echo "::set-output name=codedeploy-group-name::$(terraform-bin output -no-color -raw codedeploy_deployment_group)"
+          echo "::set-output name=task-definition::$(terraform-bin output -no-color -raw task_definition_file)"
+          echo "::set-output name=appspec-file::$(terraform-bin output -no-color -raw appspec_file)"
+
+      - name: Write CodeDeploy files
+        run: |
+          echo '${{ steps.terraform.outputs.task-definition }}' > ${{ github.workspace }}/task-definition.json
+          echo '${{ steps.terraform.outputs.appspec-file }}' > ${{ github.workspace }}/appspec.json
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1.5.11
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          role-to-assume: ${{ secrets.DEVELOPMENT_ROLE_TO_ASSUME }}
+          role-skip-session-tagging: true
+          role-duration-seconds: 1200
+
+      - name: Deploy to Development ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1.4.7
+        with:
+          task-definition: task-definition.json
+          service: ${{ steps.terraform.outputs.service-name }}
+          cluster: ${{ steps.terraform.outputs.ecs-cluster-name }}
+          wait-for-service-stability: true
+          codedeploy-appspec: appspec.json
+          codedeploy-application: ${{ steps.terraform.outputs.codedeploy-application-name }}
+          codedeploy-deployment-group: ${{ steps.terraform.outputs.codedeploy-group-name }}
 
 #  deploy-production:
 #    needs:
