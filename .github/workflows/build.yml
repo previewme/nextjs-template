@@ -239,6 +239,8 @@ jobs:
 
 #      - name: Refresh Terraform state
 #        run: terraform refresh
+      - name: Validate Config Files
+        run: terraform validate
 
       - name: Terraform Plan
         id: plan
