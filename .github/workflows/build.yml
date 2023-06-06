@@ -201,7 +201,7 @@ jobs:
     name: "Deploy development infrastructure and ECS service"
     runs-on: ubuntu-latest
     env:
-      TF_LOG: "DEBUG"
+      TF_LOG: "TRACE"
       TF_WORKSPACE: ${{ github.event.repository.name }}-development
     defaults:
       run:
@@ -240,7 +240,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-#        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
