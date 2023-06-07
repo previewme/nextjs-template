@@ -35,7 +35,7 @@ resource "aws_lb_listener_rule" "application_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = "arn:aws:elasticloadbalancing:us-east-1:371032233725:targetgroup/blue-tg-nextjs-template/5d2194a53daad8eb"
+    target_group_arn = aws_lb_target_group.green.arn
   }
 
   condition {
