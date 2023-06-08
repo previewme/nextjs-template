@@ -1,5 +1,5 @@
 resource "aws_lb_target_group" "blue" {
-  name                 = "blue-tg-nextjs-template"
+  name                 = trimsuffix(substr(format("blue-tg-%s", var.application_name), 0, 32), "-")
   port                 = var.application_port
   protocol             = "HTTP"
   target_type          = "ip"
@@ -15,7 +15,7 @@ resource "aws_lb_target_group" "blue" {
 }
 
 resource "aws_lb_target_group" "green" {
-  name                 = "green-tg-nextjs-template"
+  name                 = trimsuffix(substr(format("green-tg-%s", var.application_name), 0, 32), "-")
   port                 = var.application_port
   protocol             = "HTTP"
   target_type          = "ip"
@@ -35,7 +35,20 @@ resource "aws_lb_listener_rule" "application_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.blue.arn
+    forward {
+      stickiness {
+        duration = 0
+        enabled = false
+      }
+      target_group {
+        arn = "arn:aws:elasticloadbalancing:us-east-1:371032233725:targetgroup/blue-tg-nextjs-template/5d2194a53daad8eb"
+        weight = 0
+      }
+      target_group {
+        arn = "arn:aws:elasticloadbalancing:us-east-1:371032233725:targetgroup/green-tg-nextjs-template/c550aaf79ee60683"
+        weight = 100
+      }
+    }
   }
 
   condition {
@@ -56,7 +69,6 @@ resource "aws_lb_listener_rule" "application_rule" {
   }
 
   lifecycle {
-    create_before_destroy = true
     ignore_changes = [
       action.0.target_group_arn
     ]
