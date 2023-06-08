@@ -1,5 +1,5 @@
 resource "aws_lb_target_group" "blue" {
-  name                 = trimsuffix(substr(format("blue-tg-%s", var.application_name), 0, 32), "-")
+  name                 = "blue-tg-nextjs-template"
   port                 = var.application_port
   protocol             = "HTTP"
   target_type          = "ip"
@@ -15,7 +15,7 @@ resource "aws_lb_target_group" "blue" {
 }
 
 resource "aws_lb_target_group" "green" {
-  name                 = trimsuffix(substr(format("green-tg-%s", var.application_name), 0, 32), "-")
+  name                 = "green-tg-nextjs-template"
   port                 = var.application_port
   protocol             = "HTTP"
   target_type          = "ip"
@@ -35,7 +35,7 @@ resource "aws_lb_listener_rule" "application_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.green.arn
+    target_group_arn = aws_lb_target_group.blue.arn
   }
 
   condition {
@@ -56,6 +56,7 @@ resource "aws_lb_listener_rule" "application_rule" {
   }
 
   lifecycle {
+    create_before_destroy = true
     ignore_changes = [
       action.0.target_group_arn
     ]
