@@ -45,7 +45,7 @@ resource "aws_lb_listener_rule" "application_rule" {
         weight = 100
       }
       stickiness {
-        duration = 0
+        duration = 1
         enabled  = false
       }
     }
