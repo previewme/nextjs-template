@@ -40,7 +40,7 @@ const Home = function NextPage({ uri }: InferGetServerSidePropsType<typeof getSe
                 For the second page
                 <Link href="/second">Click Here</Link>
             </p>
-            <p>Testing OG</p>
+            <p>Testing OG v2</p>
         </main>
     );
 };
