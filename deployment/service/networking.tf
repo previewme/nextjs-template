@@ -38,11 +38,11 @@ resource "aws_lb_listener_rule" "application_rule" {
     forward {
       target_group {
         arn    = "arn:aws:elasticloadbalancing:us-east-1:371032233725:targetgroup/blue-tg-nextjs-template/5d2194a53daad8eb"
-        weight = 100
+        weight = 80
       }
       target_group {
         arn    = "arn:aws:elasticloadbalancing:us-east-1:371032233725:targetgroup/green-tg-nextjs-template/c550aaf79ee60683"
-        weight = 0
+        weight = 20
       }
     }
   }
