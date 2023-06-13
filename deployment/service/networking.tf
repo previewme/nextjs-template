@@ -44,10 +44,6 @@ resource "aws_lb_listener_rule" "application_rule" {
         arn    = "arn:aws:elasticloadbalancing:us-east-1:371032233725:targetgroup/green-tg-nextjs-template/c550aaf79ee60683"
         weight = 100
       }
-      stickiness {
-        duration = 1
-        enabled  = false
-      }
     }
   }
 
