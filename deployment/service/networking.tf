@@ -66,7 +66,8 @@ resource "aws_lb_listener_rule" "application_rule" {
 
   lifecycle {
     ignore_changes = [
-      action.0.target_group_arn,
+      action[0].forward[0].target_group.0.weight,
+      action[0].forward[1].target_group.0.weight
     ]
   }
 }
