@@ -78,12 +78,12 @@ resource "aws_codedeploy_deployment_group" "blue_green" {
       }
 
       target_group {
-        name = aws_lb_target_group.blue.name
+        name   = aws_lb_target_group.blue.name
         weight = 100
       }
 
       target_group {
-        name = aws_lb_target_group.green.name
+        name   = aws_lb_target_group.green.name
         weight = 0
       }
     }
