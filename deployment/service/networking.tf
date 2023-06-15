@@ -37,16 +37,10 @@ resource "aws_lb_listener_rule" "application_rule" {
     type = "forward"
     forward {
       target_group {
-        arn    = aws_lb_target_group.blue.arn
-        weight = 0
+        arn = aws_lb_target_group.blue.arn
       }
       target_group {
-        arn    = aws_lb_target_group.green.arn
-        weight = 100
-      }
-      stickiness {
-        duration = 1
-        enabled  = false
+        arn = aws_lb_target_group.green.arn
       }
     }
   }
